@@ -38,4 +38,4 @@ python src/evaluate.py
 - `results/per_class_accuracy.png` — individual action recognition rates
 
 ## Author
-Hessam Kaveh — Research Fellow, Italian Institute of Technology
+Hessam Kaveh — Research Fellow, Italian Institute of Technology (IIT)

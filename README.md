@@ -3,6 +3,8 @@
 3D Convolutional Neural Network for temporal action recognition in videos.
 Classifies 5 action categories: Static, Slow Motion, Fast Motion, Rotation, Vibration.
 
+**Data note:** this project uses a small procedurally generated (synthetic) dataset built in `src/dataset.py` (100 short clips of a moving square, 20 per class; the 5 classes differ only in motion pattern), not real images. It is a didactic implementation: the numbers below show that the pipeline trains, and are not comparable to benchmark results.
+
 ## Architecture
 - **3D Convolutions**: Process both spatial (H×W) and temporal (T) dimensions
 - **Multi-stage encoding**: 4 conv blocks with max pooling (spatial + temporal)
@@ -33,9 +35,19 @@ python src/evaluate.py
 ```
 
 ## Results
-- `results/training_curves.png` — loss and accuracy curves
-- `results/confusion_matrix.png` — per-action classification performance
-- `results/per_class_accuracy.png` — individual action recognition rates
+
+| Metric | Value |
+|---|---|
+| Validation accuracy, synthetic (20 clips) | 100 % |
+| Epochs | 20 |
+
+<p align="center"><img src="results/training_curves.png" width="85%"></p>
+
+<p align="center"><img src="results/confusion_matrix.png" width="85%"></p>
 
 ## Author
 Hessam Kaveh — Research Fellow, Italian Institute of Technology (IIT)
+
+## License
+
+Released under the [MIT License](LICENSE).

@@ -3,7 +3,7 @@ import torch.nn as nn
 
 
 class Conv3dBlock(nn.Module):
-    """بلاک 3D Convolution"""
+    """3D convolution block"""
     def __init__(self, in_ch, out_ch, kernel_size=3, stride=1, padding=1):
         super().__init__()
         self.conv = nn.Conv3d(in_ch, out_ch, kernel_size, stride, padding)
@@ -15,7 +15,7 @@ class Conv3dBlock(nn.Module):
 
 
 class ActionRecognitionNet(nn.Module):
-    """3D CNN برای شناخت عمل‌های ویدیویی"""
+    """3D CNN for video action recognition"""
     def __init__(self, num_classes=5, num_frames=16):
         super().__init__()
         self.num_frames = num_frames

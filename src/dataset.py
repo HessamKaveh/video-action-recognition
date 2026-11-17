@@ -9,22 +9,22 @@ PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
 DATA_DIR = os.path.join(PROJECT_ROOT, "data")
 os.makedirs(DATA_DIR, exist_ok=True)
 
-# 5 کلاس عمل
+# 5 action classes
 ACTION_CLASSES = {
-    0: "Static",      # بدون حرکت
-    1: "Slow_Move",   # حرکت کند
-    2: "Fast_Move",   # حرکت سریع
-    3: "Rotation",    # چرخش
-    4: "Vibration"    # لرزش
+    0: "Static",      # no motion
+    1: "Slow_Move",   # slow motion
+    2: "Fast_Move",   # fast motion
+    3: "Rotation",    # rotation
+    4: "Vibration"    # vibration
 }
 
-NUM_FRAMES = 16  # تعداد فریم در هر ویدیو
-FRAME_SIZE = 64  # ابعاد هر فریم
+NUM_FRAMES = 16  # frames per video
+FRAME_SIZE = 64  # frame size in pixels
 NUM_CLASSES = 5
 
 
 class SyntheticVideoActionDataset(Dataset):
-    """دیتاست مصنوعی: ویدیوهای کوتاه با عمل‌های متفاوت"""
+    """Synthetic dataset: short videos with different actions"""
     def __init__(self, num_samples_per_class=20, num_frames=NUM_FRAMES, frame_size=FRAME_SIZE):
         self.num_samples_per_class = num_samples_per_class
         self.num_frames = num_frames
@@ -39,7 +39,7 @@ class SyntheticVideoActionDataset(Dataset):
         action_id = idx // self.num_samples_per_class
         sample_id = idx % self.num_samples_per_class
         
-        # تولید ویدیو مصنوعی
+        # generate a synthetic video
         video = self._generate_video(action_id, sample_id)
         
         video_tensor = torch.from_numpy(video).float() / 255.0
@@ -48,7 +48,7 @@ class SyntheticVideoActionDataset(Dataset):
         return video_tensor, label
     
     def _generate_video(self, action_id, sample_id):
-        """تولید ویدیو بر اساس کلاس عمل"""
+        """Generate a video for the given action class"""
         np.random.seed(idx := action_id * 100 + sample_id)
         
         video = np.ones((self.num_frames, self.frame_size, self.frame_size, 3), dtype=np.uint8) * 200
@@ -56,12 +56,12 @@ class SyntheticVideoActionDataset(Dataset):
         for frame_idx in range(self.num_frames):
             frame = video[frame_idx]
             
-            # مربع متحرک در مرکز
+            # moving square in the centre
             center_x = self.frame_size // 2
             center_y = self.frame_size // 2
             size = 10
             
-            # موقعیت بر اساس کلاس عمل
+            # position depends on the action class
             if action_id == 0:  # Static
                 x = center_x
                 y = center_y
@@ -83,10 +83,10 @@ class SyntheticVideoActionDataset(Dataset):
             x = max(0, min(self.frame_size - size, int(x)))
             y = max(0, min(self.frame_size - size, int(y)))
             
-            # رسم مربع
+            # draw the square
             cv2.rectangle(frame, (x, y), (x + size, y + size), (0, 255, 0), -1)
             
-            # رسم متن
+            # draw the label text
             color = (255, 0, 0) if action_id in [0, 2, 4] else (0, 0, 255)
             cv2.putText(frame, ACTION_CLASSES[action_id], (5, 15),
                        cv2.FONT_HERSHEY_SIMPLEX, 0.4, color, 1)

@@ -6,3 +6,5 @@ venv/
 *.pt
 checkpoints/
 logs/
+.pytest_cache/
+.ruff_cache/

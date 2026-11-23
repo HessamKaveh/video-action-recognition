@@ -1,8 +1,14 @@
 # Video Action Recognition on UCF101 with 3D CNNs
 
+[![CI](https://github.com/HessamKaveh/video-action-recognition/actions/workflows/ci.yml/badge.svg)](https://github.com/HessamKaveh/video-action-recognition/actions/workflows/ci.yml) ![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg) ![PyTorch](https://img.shields.io/badge/PyTorch-2.x-ee4c2c.svg?logo=pytorch&logoColor=white) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 Fine-tuning spatio-temporal CNNs (**R(2+1)D-18** and **R3D-18**, Tran et al., CVPR 2018) on the real **UCF101** benchmark (101 human action classes, 13,320 YouTube videos). The comparison covers:
 - factorised (2+1)D convolutions vs full 3D convolutions;
 - Kinetics-400 pretraining vs training from scratch.
+
+<p align="center"><img src="results/hero_ucf101_top3.gif" width="80%"></p>
+
+*Our R(2+1)D-18 (Kinetics-400 init) on four UCF101 split-1 **test** videos (from the CRCV/THUMOS UCF101 release), scored with the 10-clip test protocol; bars = top-3 video-level probabilities.*
 
 ## Results: UCF101 split 1 (3,783 test videos)
 
